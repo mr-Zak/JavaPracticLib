@@ -1,7 +1,11 @@
-import logo from './logo.svg';
+import React from "react";
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import './App.css';
-import {Component, useState} from "react";
-import BookComponent from "./BookComponent";
+import {Component} from "react";
+import ReactDOM from "react-dom";
+import BookList from "./BookList";
+import NavBar from "./NavBar";
+import AllBooks from "./AllBooks";
 
 class App extends Component {
 
@@ -10,7 +14,7 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    let response = await fetch('/books');
+    let response = await fetch('/books/');
     const body = await response.json();
     this.setState({books: body});
   }
@@ -19,20 +23,21 @@ class App extends Component {
     const books = this.state.books;
 
     return (
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo"/>
-            <div className="App-intro">
-              <h2>Книги</h2>
-              {books.map((book) =>
-                  <div key={book.id}>{
-                    new BookComponent(book).bookInfo()
-                  }
-                  </div>
-              )}
-            </div>
-          </header>
-        </div>
+        <BrowserRouter>
+          <div className="App">
+              <h2 style={{'margin-top': '0'}}>Книги</h2>
+              <div id={'contentContainer'} >
+                <NavBar/>
+                <BookList books={books}/>
+              </div>
+              <div>
+                <Routes>
+                  <Route path="/all" element={<AllBooks books={books}/>}/>
+                </Routes>
+              </div>
+
+          </div>
+        </BrowserRouter>
     );
   }
 }

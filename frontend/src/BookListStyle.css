@@ -1,0 +1,6 @@
+.bookList {
+    max-width: 70%;
+    background-color: #61dafb;
+    display: flex;
+    overflow-x: auto;
+}

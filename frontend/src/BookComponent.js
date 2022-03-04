@@ -1,45 +1,34 @@
-import {Component, useState} from "react";
+import React, {Component} from "react";
 import ReactDOM from "react-dom";
+import {withRouter} from "react-router-dom";
+import App from "./App";
+import "./BookComponentStyle.css"
 
 class BookComponent extends Component{
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            book: this.props
-        }
-    }
+      constructor(props) {
+              super(props);
+      }
 
-    async componentDidMount(id) {
-        let response = await fetch(`/books/${id}`);
-        const body = await response.json();
-        this.setState({book: body});
-    }
+      onClickGoHome = () => {
+          ReactDOM.render(
+              <React.StrictMode>
+                  <App />
+              </React.StrictMode>,
+              document.getElementById('root')
+          );
+      }
 
-    onClick = () => {
-        this.componentDidMount(this.state.book.id)
-        ReactDOM.render(this.render(), document.getElementById("root"));
-    }
-
-    bookInfo() {
-        let {book} = this.state;
-        return (
-            <div key={book.id} onClick={this.onClick} style={{ 'border': 'solid black 2px', 'margin': '10px', 'cursor': 'pointer'}}>
-                <h4>{book.name}</h4>
-                <img style={{'width': '300px', 'height': 'auto'}} src={process.env.PUBLIC_URL + '/images/' + book.imagePath}  />
-            </div>
-        );
-    }
-
-    render() {
-        let {book} = this.state;
-        return (
-            <div key={book.id} onClick={this.onClick}>
-                <h4>{book.name}</h4>
-                <img style={{'width': '600px', 'height': 'auto'}} src={process.env.PUBLIC_URL + '/images/' + book.imagePath}  />
-                <p><a href={`#`} download>Скачать</a></p>
-            </div>
-        );
-    }
+     render() {
+             return (
+                 <div key={this.props.book.id} className={'bookInfo'}>
+                         <h4>{this.props.book.name}</h4>
+                         <img style={{'width': '200px', 'height': 'auto'}}
+                              src={process.env.PUBLIC_URL + '/images/' + this.props.book.imagePath}/>
+                         <p><a href={`#`} download>Скачать</a></p>
+                     <button onClick={this.onClickGoHome}>Go Back</button>
+                 </div>
+             );
+     }
 }
 export default BookComponent;

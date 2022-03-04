@@ -1,0 +1,8 @@
+.navBar {
+    width: 15%;
+    background-color: coral;
+}
+
+.navBarLink {
+    display: block;
+}
