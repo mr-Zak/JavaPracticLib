@@ -7,8 +7,8 @@ const NavBar = () =>{
 
     return (
         <div className={'navBar'}>
-            <a className={'navBarLink'} href={'#'}>Главная</a>
-            <a className={'navBarLink'} href={'/all'}>Все книги</a>
+            <NavLink className={'navBarLink'} to={'#'}>Главная</NavLink>
+            <NavLink className={'navBarLink'} to={'/all'}>Все книги</NavLink>
         </div>
     );
 }

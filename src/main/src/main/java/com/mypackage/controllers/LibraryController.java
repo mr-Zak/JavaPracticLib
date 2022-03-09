@@ -4,6 +4,7 @@ import com.mypackage.pojo.Book;
 import com.mypackage.pojo.BookDaoImpl;
 import com.mypackage.pojo.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.awt.*;
 import java.util.List;
 
 @RestController
@@ -31,8 +33,8 @@ public class LibraryController {
         return bookDaoImpl.allBooks();
     }
 
-    @GetMapping("/{id}")
-    public Book show(@PathVariable(value = "id") int id){
+    @GetMapping(value = "/book/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Book show(@PathVariable(value = "id") int id) {
         return bookDaoImpl.getById(id);
     }
 

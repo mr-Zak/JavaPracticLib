@@ -5,8 +5,10 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.stereotype.Component;
 
 import javax.imageio.stream.FileImageInputStream;
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,14 +39,13 @@ public class BookDaoImpl implements BookDAO{
     public void addBook(Book book) {
         PSQLClient client = new PSQLClient();
         File file = new File("C:/Users/a.zakirov/IdeaProjects/untitled1/src/main/resources/static/image/hp_1.png");
-        try(PreparedStatement ps = client.getDataSource().getConnection().prepareStatement("INSERT INTO lib_books(bookname, bookfilepath, imagepath, filevalue) VALUES( ?, ?, ?, ?)")) {
-            FileInputStream fis = new FileInputStream(file);
+        try(PreparedStatement ps = client.getDataSource().getConnection().prepareStatement("INSERT INTO lib_books(bookname, bookfilepath, imagepath) VALUES( ?, ?, ?)")) {
+//            FileInputStream fis = new FileInputStream(file);
             ps.setString(1, book.getName());
             ps.setString(2, book.getFilePath());
             ps.setString(3, book.getImagePath());
-            ps.executeUpdate();
             client.getDataSource().getConnection().commit();
-            fis.close();
+//            fis.close();
         } catch (Exception e){
             e.printStackTrace();
         } finally {
@@ -86,8 +87,9 @@ public class BookDaoImpl implements BookDAO{
         } catch (Exception e){
             e.printStackTrace();
         }
-        client.getContext().close();
-
-        return book;
+        finally {
+            client.getContext().close();
+            return book;
+        }
     }
 }
