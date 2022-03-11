@@ -1,15 +1,26 @@
 package com.mypackage.pojo;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
+
+@Entity
+@EntityListeners(AuditingEntityListener.class)
+@Table(name = "lib_books")
 public class Book {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @Column(name = "bookname")
     private String name;
 
+    @Column(name = "bookfilepath")
     private String filePath;
 
+    @Column(name = "imagepath")
     private String imagePath;
-
 
     public int getId() {
         return id;

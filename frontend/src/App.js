@@ -25,7 +25,7 @@ class App extends Component {
     return (
         <BrowserRouter>
           <div className="App">
-              <h2 style={{'margin-top': '0'}}>Книги</h2>
+              <h2>Книги</h2>
               <div id={'contentContainer'} >
                 <NavBar/>
                 <BookList books={books}/>

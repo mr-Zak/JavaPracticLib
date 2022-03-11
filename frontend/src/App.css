@@ -34,8 +34,9 @@
 }
 
 #contentContainer {
-  width: 100%;
+  width: 80%;
   display: flex;
+  margin: 0 auto;
 }
 
 @keyframes App-logo-spin {
